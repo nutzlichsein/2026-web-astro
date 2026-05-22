@@ -1,0 +1,204 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const slides = [
+  { src: '/media/slideshow/20240927-S1_4493_Ed.JPG', alt: 'foto 1' },
+  { src: '/media/slideshow/251003 RMI Katingan_1C_20251003172644_0032_D.jpg', alt: 'foto 2' },
+  { src: '/media/slideshow/251004 RMI Katingan_2A_3660.jpg', alt: 'foto 3' },
+  { src: '/media/slideshow/260327 RMI Katingan_8A_4345.jpg', alt: 'foto 4' },
+  { src: '/media/slideshow/260329 RMI KATINGAN 10A_4583.jpg', alt: 'foto 5' },
+  { src: '/media/slideshow/260331 RMI KATINGAN 12B_3755.jpg', alt: 'foto 6' },
+];
+---
+
+<Layout title="Suryo Wibowo | Visual Storyteller">
+  
+  <!-- Fullscreen wrapper -->
+  <div class="landing-wrapper">
+    
+    <!-- 1. Slider Fullscreen -->
+    <div class="slider-container">
+      {slides.map((slide, index) => (
+        <div class={`slide ${index === 0 ? 'active' : ''}`} data-index={index}>
+          <img src={slide.src} alt={slide.alt} loading={index === 0 ? "eager" : "lazy"} />
+        </div>
+      ))}
+
+      <!-- Arrow Navigation -->
+      <button class="nav-btn prev" id="prevBtn" aria-label="Previous Slide">&#10094;</button>
+      <button class="nav-btn next" id="nextBtn" aria-label="Next Slide">&#10095;</button>
+    </div>
+
+    <!-- Dark Overlay -->
+    <div class="overlay"></div>
+
+    <!-- Center Text Content -->
+    <div class="hero-content">
+      <img src="/logo2.svg" alt="Suryo Wibowo" class="hero-logo" />
+      <p>Visual Storyteller</p>
+      <div class="location">Based in Kupang, East Nusa Tenggara</div>
+    </div>
+
+    <!--
+       Footer is rendered by Layout.astro. It is positioned
+       at the bottom of this page via the CSS below.
+    -->
+
+  </div>
+</Layout>
+
+<style>
+  :global(html), :global(body) {
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  .landing-wrapper {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+  }
+
+  /* --- 2. SLIDER STYLING --- */
+  .slider-container {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 1;
+  }
+
+.slide {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  z-index: 1;
+}
+
+.slide.active {
+  opacity: 1 !important;
+  z-index: 10 !important;
+}
+  .slide img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* Navigation Buttons */
+  .nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    z-index: 100;
+    font-size: 1.5rem;
+    opacity: 0.6;
+    transition: all 0.3s;
+  }
+  .nav-btn:hover { opacity: 1; background: rgba(0, 0, 0, 0.6); }
+  .prev { left: 0; }
+  .next { right: 0; }
+
+  /* Overlay & Teks */
+  .overlay {
+    position: absolute; inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 5;
+  }
+
+  .hero-content {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    text-align: center;
+    color: white;
+    width: 90%;
+  }
+
+  .hero-logo {
+    max-width: 320px;
+    height: auto;
+    margin: 0 auto 1rem;
+    filter: brightness(0) invert(1);
+  }
+
+  .hero-content p {
+    font-family: var(--font-body);
+    text-transform: uppercase; letter-spacing: 0.2em;
+  }
+
+  :global(footer) {
+    position: absolute !important;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 200;
+    margin-top: 0 !important;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  :global(.footer-inner) {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 2rem;
+  }
+  
+  :global(.socials a) { margin: 0 10px; font-size: 0.8rem; }
+  :global(.copyright) { margin: 0; }
+
+  /* Mobile Adjustments */
+  @media (max-width: 768px) {
+    .nav-btn { display: none; }
+    :global(.footer-inner) {
+      flex-direction: column; 
+      gap: 0.5rem;
+      padding: 0;
+    }
+  }
+</style>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = document.querySelectorAll('.slide');
+      const nextBtn = document.getElementById('nextBtn');
+      const prevBtn = document.getElementById('prevBtn');
+
+      if (slides.length === 0) {
+        console.warn('No slides found');
+        return;
+      }
+
+      let currentSlide = 0;
+      const slideIntervalTime = 3500;
+      let slideTimer;
+
+      function showSlide(index) {
+        if (index >= slides.length) currentSlide = 0;
+        else if (index < 0) currentSlide = slides.length - 1;
+        else currentSlide = index;
+
+        slides.forEach(slide => slide.classList.remove('active'));
+        slides[currentSlide].classList.add('active');
+      }
+
+      function nextSlide() {
+        showSlide(currentSlide + 1);
+      }
+
+      function prevSlide() {
+        showSlide(currentSlide - 1);
+      }
+
+      function resetTimer() {
+        clearInterval(slideTimer);
+        slideTimer = setInterval(nextSlide, slideIntervalTime);
+      }
+
+      if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); resetTimer(); });
+      if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); resetTimer(); });
+
+      resetTimer();
+    });
+  </script>

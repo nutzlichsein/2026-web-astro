@@ -1,0 +1,107 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { getPhotographyImageUrl } from '../utils/images';
+
+const allProjects = (await getCollection('photography')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<Layout title="Stills">
+  <div class="container photo-list-container">
+    
+    <div class="photo-grid">
+      {allProjects.map((project) => {
+        const coverUrl = getPhotographyImageUrl(project.slug, project.data.coverImage);
+        
+        return (
+          <a href={`/stills/${project.slug}/`} class="project-card">
+            <div class="thumb">
+              <img 
+                src={coverUrl}
+                alt={project.data.title} 
+                loading="lazy" 
+              />
+            </div>
+            <div class="info">
+              <h2>{project.data.title}</h2>
+              <div class="meta">{project.data.category} &bull; {project.data.date.getFullYear()}</div>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .photo-list-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .photo-grid { 
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 3rem; 
+  }
+
+  .project-card { display: block; }
+
+  .thumb { 
+    aspect-ratio: 3/2; 
+    overflow: hidden; 
+    margin-bottom: 1rem; 
+    background: #f0f0f0;
+    border-radius: 8px;
+  }
+  
+  .thumb img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    transition: transform 0.5s; 
+  }
+
+  .project-card:hover .thumb img { transform: scale(1.03); }
+
+  .info h2 { font-size: 1.2rem; font-family: var(--font-body); font-weight: 600; margin-bottom: 0.25rem; }
+  .meta { font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* Tablet (max-width: 1024px) */
+  @media (max-width: 1024px) {
+    .photo-list-container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+    
+    .photo-grid { 
+      gap: 2rem;
+    }
+  }
+
+  /* Mobile (max-width: 768px) */
+  @media (max-width: 768px) {
+    .photo-list-container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+    
+    .photo-grid { 
+      grid-template-columns: 1fr; 
+      gap: 2rem; 
+    }
+  }
+
+  /* HP kecil (max-width: 480px) */
+  @media (max-width: 480px) {
+    .photo-list-container {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+  }
+
+</style>

@@ -1,0 +1,218 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const videos = [
+  { 
+    youtubeId: 'YJz_OurwN3I', 
+    title: 'ATR Aircraft: Brewing Opportunities in Flores', 
+    thumb: 'https://img.youtube.com/vi/YJz_OurwN3I/maxresdefault.jpg', 
+    date: '2024' 
+  },
+  { 
+    youtubeId: 'dUVRQO7UCAo', 
+    title: 'GFX100S: "Orangutan Sanctuary" x Beawiharta/ FUJIFILM', 
+    thumb: 'https://img.youtube.com/vi/dUVRQO7UCAo/maxresdefault.jpg', 
+    date: '2021' 
+  },
+  { 
+    youtubeId: 'cJFE7H-iOmc', 
+    title: 'The Meaning of Hope and Bringing Change to Children of Sumba', 
+    thumb: 'https://img.youtube.com/vi/cJFE7H-iOmc/maxresdefault.jpg',
+    date: '2025' 
+  },
+  { 
+    youtubeId: 'hXtLCig6bmA', 
+    title: 'Kampung Katong', 
+    thumb: 'https://img.youtube.com/vi/hXtLCig6bmA/maxresdefault.jpg',
+    date: '2023' 
+  },
+  {
+    youtubeId: 'rzUL4UxJ25o', 
+    title: 'Heritage in Every Slice', 
+    thumb: 'https://img.youtube.com/vi/rzUL4UxJ25o/maxresdefault.jpg', 
+    date: '2023' 
+  },
+  { 
+    youtubeId: 'cXvkaXdfvL8', 
+    title: 'Our Home Ketapang', 
+    thumb: 'https://img.youtube.com/vi/cXvkaXdfvL8/maxresdefault.jpg',
+    date: '2021' 
+  },
+];
+
+---
+
+<Layout title="Videography">
+  <div class="video-page">
+    <div class="video-container">
+      
+      <!-- Main Player -->
+      <div class="video-wrapper" id="mainPlayer">
+        <iframe 
+          id="youtubeFrame"
+          width="100%" 
+          height="100%" 
+          src={`https://www.youtube.com/embed/${videos[0].youtubeId}`} 
+          title="YouTube video player" 
+
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <!-- Thumbnail List -->
+      <div class="video-list" id="videoList">
+        {videos.map((video) => (
+          <div class="video-item" data-video-id={video.youtubeId}>
+            <img src={video.thumb} alt={video.title} loading="lazy" />
+            <div class="video-info">
+              <h3>{video.title}</h3>
+              <small>{video.date}</small>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  /* Main container */
+  .video-page {
+    width: 100%;
+  }
+  
+  .video-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 2rem 2rem 4rem 2rem;  /* default padding desktop */
+  }
+  
+  .video-wrapper { 
+    aspect-ratio: 16/9; 
+    background: #000; 
+    margin-bottom: 3rem; 
+    width: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .video-wrapper iframe {
+    border: 0;
+  }
+  
+  /* Default grid: 3 columns for desktop and iPad */
+  .video-list { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 1.5rem; 
+  }
+  
+  .video-item { 
+    cursor: pointer; 
+    transition: opacity 0.3s;
+  }
+  
+  .video-item:hover { opacity: 0.8; }
+  
+  .video-item img { 
+    width: 100%; 
+    aspect-ratio: 16/9; 
+    object-fit: cover; 
+    margin-bottom: 0.5rem; 
+    border-radius: 4px;
+  }
+  
+  .video-info h3 { 
+    font-size: 0.9rem; 
+    margin-bottom: 0.2rem; 
+    font-family: var(--font-body); 
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  
+  .video-info small { 
+    color: var(--text-muted); 
+    font-size: 0.75rem; 
+  }
+  
+  /* iPad: keep 3 columns, smaller padding */
+  @media (max-width: 1024px) {
+    .video-container {
+      padding: 1.5rem 1.5rem 3rem 1.5rem;
+    }
+    
+    .video-list { 
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+  }
+  
+  /* Mobile: 2 columns, smaller padding */
+  @media (max-width: 768px) {
+    .video-container {
+      padding: 1rem 1rem 2rem 1rem;
+    }
+    
+    .video-list { 
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    
+    .video-wrapper {
+      margin-bottom: 1.5rem;
+    }
+    
+    .video-info h3 {
+      font-size: 0.8rem;
+    }
+    
+    .video-info small {
+      font-size: 0.7rem;
+    }
+  }
+  
+  /* Small phone: keep 2 columns, tighter padding */
+  @media (max-width: 480px) {
+    .video-container {
+      padding: 0.75rem 0.75rem 1.5rem 0.75rem;
+    }
+    
+    .video-list { 
+      gap: 0.75rem;
+    }
+    
+    .video-info h3 {
+      font-size: 0.7rem;
+    }
+    
+    .video-info small {
+      font-size: 0.65rem;
+    }
+  }
+  
+  /* Dark mode support */
+  html[data-theme="dark"] .video-info small {
+    color: #aaa;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const videoItems = document.querySelectorAll('.video-item') as NodeListOf<HTMLElement>;
+    const iframe = document.getElementById('youtubeFrame') as HTMLIFrameElement | null;
+    const mainPlayer = document.getElementById('mainPlayer');
+    
+    if (!iframe || !mainPlayer) return;
+    
+    videoItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const videoId = item.dataset.videoId;
+        if (videoId) {
+          iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+          mainPlayer.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  });
+</script>

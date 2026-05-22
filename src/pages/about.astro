@@ -1,0 +1,198 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About">
+  <div class="about-container">
+    <div class="about-layout">
+      <div class="photo-wrapper">
+        <div class="photo">
+          <img src="/profile-sw.jpg" alt="Suryo Wibowo" loading="lazy" />
+        </div>
+      </div>
+      <div class="bio">
+        <h1>Suryo Wibowo</h1>
+        <p class="tagline">Visual Storyteller</p>
+        <p>Suryo is a visual storyteller based in Kupang, East Nusa Tenggara, Indonesia. He began his career in photojournalism at <em>TEMPO</em>, Indonesia's leading weekly news magazine and daily newspaper.</p>
+        <p>Captivated by the documentary style, Suryo delved deeper into video and multimedia storytelling. In 2015, he received a fellowship from the <em>Konrad Adenauer Stiftung</em> to study Multimedia Journalism at <em>Ateneo de Manila University</em> in the Philippines.</p>
+        <p>Since then, Suryo has collaborated with NGOs, government agencies, news organizations, media outlets, and brands to create ethically sourced and impactful stories using a documentary approach.</p>
+        <a href="mailto:suryo@terangtanah.com" class="btn">Contact Me</a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem 2rem;
+  }
+
+  .about-layout {
+    display: grid;
+    grid-template-columns: 0.8fr 1.4fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  /* Photo styling */
+  .photo-wrapper {
+    position: relative;
+  }
+
+  .photo {
+    position: relative;
+    border-radius: 20px 4px 20px 4px;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+  }
+
+  .photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(100%) contrast(120%);
+    transition: filter 0.3s ease;
+  }
+
+  .photo:hover img {
+    filter: grayscale(0%);
+  }
+
+  /* Bio styling */
+  .bio h1 {
+    font-size: 2.5rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .tagline {
+    font-size: 1rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .bio p {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+    color: #333;
+  }
+
+  .bio p em {
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  /* Button styling */
+  .btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.8rem 2rem;
+    background: #1a1a1a;
+    color: white;
+    text-decoration: none;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-radius: 40px;
+    transition: all 0.3s ease;
+    border: 1px solid #1a1a1a;
+  }
+
+  .btn:hover {
+    background: transparent;
+    color: #1a1a1a;
+  }
+
+  /* Dark mode */
+  html[data-theme="dark"] .tagline {
+    color: #aaa;
+    border-bottom-color: #333;
+  }
+
+  html[data-theme="dark"] .bio p {
+    color: #ccc;
+  }
+
+  html[data-theme="dark"] .btn {
+    background: #f0f0f0;
+    color: #1a1a1a;
+    border-color: #f0f0f0;
+  }
+
+  html[data-theme="dark"] .btn:hover {
+    background: transparent;
+    color: #f0f0f0;
+    border-color: #f0f0f0;
+  }
+
+  /* Tablet */
+  @media (max-width: 900px) {
+    .about-container {
+      padding: 2rem 1.5rem 4rem 1.5rem;
+    }
+    
+    .about-layout {
+      gap: 2.5rem;
+    }
+    
+    .bio h1 {
+      font-size: 2rem;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .about-container {
+      padding: 1.5rem 1rem 3rem 1rem;
+    }
+    
+    .about-layout {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    
+    .photo {
+      max-width: 280px;
+      margin: 0 auto;
+      border-radius: 16px 4px 16px 4px;
+    }
+    
+    .bio h1 {
+      font-size: 1.75rem;
+      text-align: center;
+    }
+    
+    .tagline {
+      text-align: center;
+    }
+    
+    .btn {
+      display: block;
+      text-align: center;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  /* Mobile kecil */
+  @media (max-width: 480px) {
+    .about-container {
+      padding: 1rem 1rem 2.5rem 1rem;
+    }
+    
+    .bio p {
+      font-size: 0.9rem;
+    }
+  }
+</style>
