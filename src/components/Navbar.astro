@@ -1,4 +1,6 @@
 ---
+import Logo from './Logo.astro';
+
 const currentPath = Astro.url.pathname;
 const navLinks = [
   { href: '/motion', label: 'Motion', active: currentPath === '/motion' },
@@ -10,7 +12,7 @@ const navLinks = [
 <header class="navbar">
   <div class="container nav-inner">
     <a href="/" class="logo">
-        <img src="/logo2.svg" alt="Suryo Wibowo" width="120" height="100"/>
+        <Logo variant="navbar" />
     </a>
     
     <nav class="desktop-nav">
@@ -80,23 +82,7 @@ const navLinks = [
     color: var(--text-main);
   }
   
-  .logo img {
-  width: 100px;  /* atur sesuai keinginan */
-  height: 60px;
-  transition: filter 0.3s ease;
-}
-
-.logo img {
-  filter: none;
-}
-
-/* Dark mode: invert color */
-html[data-theme="dark"] .logo img {
-  filter: brightness(0) invert(1);
-}
-
-/* Optional: hover effect */
-.logo:hover img {
+  .logo:hover svg {
   opacity: 0.8;
 }
   
@@ -245,8 +231,8 @@ html[data-theme="dark"] .logo img {
     
     
     .logo svg {
-      width: 28px;
-      height: 28px;
+      width: 80px;
+      height: auto;
     }
     
     .theme-toggle-btn {

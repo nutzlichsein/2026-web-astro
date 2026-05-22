@@ -1,0 +1,41 @@
+---
+export interface Props {
+  class?: string;
+  variant?: 'navbar' | 'hero';
+}
+
+const { class: className = '', variant = 'navbar' } = Astro.props;
+---
+
+<svg class:list={[className, variant]} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 469 200">
+  <text x="-1.198px" y="197.895px" font-family="'IBM Plex Mono', monospace" font-weight="600" font-size="96px" class="logo-wibowo">
+    W<tspan x="81.266px 163.73px 246.194px 328.658px 411.122px" y="197.895px 197.895px 197.895px 197.895px 197.895px">IBOWO</tspan>
+  </text>
+  <text x="-5.443px" y="124.661px" font-family="'IBM Plex Mono', monospace" font-weight="700" font-size="175.579px" class="logo-suryo">
+    S<tspan x="87.789px 181.022px 274.254px 367.487px" y="124.661px 124.661px 124.661px 124.661px">URYO</tspan>
+  </text>
+</svg>
+
+<style>
+  .navbar {
+    width: 100px;
+    height: 60px;
+  }
+  .hero {
+    max-width: 320px;
+    height: auto;
+    display: block;
+    margin: 0 auto 1rem;
+  }
+
+  .logo-wibowo { fill: #747474; }
+  .logo-suryo { fill: #000000; }
+
+  html[data-theme="dark"] .logo-wibowo,
+  html[data-theme="dark"] .logo-suryo {
+    fill: #ffffff;
+  }
+
+  .hero .logo-wibowo { fill: rgba(255,255,255,0.65); }
+  .hero .logo-suryo { fill: #ffffff; }
+</style>

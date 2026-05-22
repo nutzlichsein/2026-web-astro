@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Logo from '../components/Logo.astro';
 
 const slides = [
   { src: '/media/slideshow/20240927-S1_4493_Ed.JPG', alt: 'foto 1' },
@@ -34,7 +35,7 @@ const slides = [
 
     <!-- Center Text Content -->
     <div class="hero-content">
-      <img src="/logo2.svg" alt="Suryo Wibowo" class="hero-logo" />
+      <Logo variant="hero" />
       <p>Documentary Film / Photo Story / Program & Campaign Documentation</p>
       <div class="location">Based in Kupang, East Nusa Tenggara, Indonesia</div>
     </div>
@@ -117,12 +118,7 @@ const slides = [
     width: 90%;
   }
 
-  .hero-logo {
-    max-width: 320px;
-    height: auto;
-    margin: 0 auto 1rem;
-    filter: brightness(0) invert(1);
-  }
+
 
   .hero-content p {
     font-family: var(--font-body);
