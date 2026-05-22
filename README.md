@@ -161,10 +161,22 @@ Homepage images are in `public/media/slideshow/`. Update the `slides` array in `
 - **Masonry gallery**: 2-column, supports full-width items via `fullWidth: true`
 - **PhotoSwipe**: Lightbox for gallery images on project detail pages
 
-## Build & Deploy
+## Deploy to Production (Cloudflare Pages)
+
+Setiap perubahan otomatis deploy setelah push ke GitHub.
 
 ```bash
-npm run build
+git add -A
+git commit -m "pesan perubahan"
+git push
 ```
 
-Output goes to `dist/`. The site is configured to deploy to GitHub Pages at `https://suryowibowo.github.io/2026-web-astro/` (set in `astro.config.mjs`).
+Cloudflare Pages otomatis rebuild & deploy (biasanya ~2 menit).
+
+### Alur kerja harian
+
+```
+Edit di VSCode → git commit → git push → Cloudflare auto-deploy
+```
+
+Cek status deploy di: **Cloudflare Dashboard → Workers & Pages → 2026-web-astro**
